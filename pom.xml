@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.ericsson.oss.autoprovisioning.ap-parent</groupId>
+        <artifactId>ap-parent</artifactId>
+        <version>1.2.112</version>
+    </parent>
+
+    <groupId>com.ericsson.oss.autoprovisioning.macro</groupId>
+    <artifactId>ap-service-macro</artifactId>
+    <version>1.19.3-SNAPSHOT</version>
+    <name>[${project.artifactId}] JEE6 Project</name>
+    <packaging>pom</packaging>
+
+    <properties>
+        <!-- temporary work-around for issue where ap-parent appears in connection
+            when using scm entries from parent pom -->
+        <ericsson.scm.url>
+            scm:git:[fetch=]ssh://gerritmirror-ha.lmera.ericsson.se:29418/OSS/com.ericsson.oss.autoprovisioning.macro/ap-service-macro[push=]ssh://gerrit.ericsson.se:29418/OSS/com.ericsson.oss.autoprovisioning.macro/ap-service-macro
+        </ericsson.scm.url>
+    </properties>
+
+    <scm>
+        <connection>${ericsson.scm.url}</connection>
+        <developerConnection>${ericsson.scm.url}</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+    <modules>
+        <module>ap-service-erbs-ejb</module>
+        <module>ap-service-erbs-ear</module>
+        <module>ERICapservicemacro_CXP9030536</module>
+    </modules>
+</project>

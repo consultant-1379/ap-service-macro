@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>ap-service-macro</artifactId>
+        <groupId>com.ericsson.oss.autoprovisioning.macro</groupId>
+        <version>1.19.3-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>ap-service-erbs-ejb</artifactId>
+    <name>[${project.parent.artifactId}] EJB module</name>
+    <packaging>ejb</packaging>
+
+    <properties>
+        <!-- temporary work-around for issue with sdk_service_identifier
+            where ap-service-erbs needs to be used for upgrade -->
+        <sdk_service_identifier>ap-service-erbs</sdk_service_identifier>
+    </properties>
+
+    <build>
+        <!-- DO NOT DELETE RESOURCE FILTERING. FILTERING IS REQUIRED BY SERVICE
+            FRAMEWORK. YOU CAN EXCLUDE FILES YOU DO NOT WANT TO BE FILTERED. -->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ejb-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Dependencies>
+                                org.slf4j, com.ericsson.oss.itpf.datalayer.dps.api, com.ericsson.oss.services.autoprovisioning.api meta-inf export
+                            </Dependencies>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.ericsson.oss.itpf.sdk</groupId>
+            <artifactId>sdk-upgrade-api</artifactId>
+        </dependency>
+    </dependencies>
+</project>

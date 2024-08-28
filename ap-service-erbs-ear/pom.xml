@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>ap-service-macro</artifactId>
+        <groupId>com.ericsson.oss.autoprovisioning.macro</groupId>
+        <version>1.19.3-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>ap-service-erbs-ear</artifactId>
+    <name>[${project.parent.artifactId}] EAR module</name>
+    <packaging>ear</packaging>
+
+    <build>
+        <outputDirectory>ap-service-erbs-${project.version}</outputDirectory>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ear-plugin</artifactId>
+                <configuration>
+                    <version>${version.jee}</version>
+                    <workDirectory>target/ap-service-erbs-${project.version}</workDirectory>
+                    <defaultLibBundleDir>${project.ear.defaultLibBundleDir}</defaultLibBundleDir>
+                    <description>${project.parent.artifactId} JEE6 service</description>
+                    <displayName>${project.parent.artifactId} JEE6 service</displayName>
+                    <archive>
+                        <manifestEntries>
+                            <Dependencies>
+                                com.sun.xml.txw2, org.slf4j,com.ericsson.oss.services.autoprovisioning.api annotations,com.ericsson.oss.itpf.datalayer.dps.api, com.ericsson.oss.itpf.modeling.modelservice.impl meta-inf export
+                            </Dependencies>
+                        </manifestEntries>
+                    </archive>
+                    <modules>
+                        <ejbModule>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>ap-service-erbs-ejb</artifactId>
+                        </ejbModule>
+                    </modules>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>ap-service-erbs-ejb</artifactId>
+            <version>${project.version}</version>
+            <type>ejb</type>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>production_env</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <dependencies>
+                <!-- All production-ready dependencies to Service Framework
+                    implementation modules should go here. These are LITP specific -->
+            </dependencies>
+        </profile>
+    </profiles>
+</project>

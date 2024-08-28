@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>ap-service-macro</artifactId>
+        <groupId>com.ericsson.oss.autoprovisioning.macro</groupId>
+        <version>1.19.3-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>ERICapservicemacro_CXP9030536</artifactId>
+    <name>[${project.parent.artifactId}] CXP module</name>
+    <packaging>${rpm.packaging}</packaging>
+
+    <properties>
+        <install-path>${project.artifactId}</install-path>
+        <media.category>service</media.category>
+        <publish_artifact>true</publish_artifact>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>rpm-maven-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <properties combine.self="override" />
+                    <copyright>2014 Ericsson AB All rights reserved</copyright>
+                    <mappings>
+                        <mapping>
+                            <directory>${vm.install-path}</directory>
+                            <filemode>500</filemode>
+                            <username>${jboss-username}</username>
+                            <groupname>${jboss-groupname}</groupname>
+                            <dependency>
+                                <includes>
+                                    <!-- update for WAR/RAR as needed -->
+                                    <include>${project.groupId}:ap-service-erbs-ear</include>
+                                </includes>
+                            </dependency>
+                        </mapping>
+                    </mappings>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>ap-service-erbs-ear</artifactId>
+            <version>${project.version}</version>
+            <type>ear</type>
+        </dependency>
+    </dependencies>
+</project>
